@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+</head>
+<body>
+    <h1>Home</h1>
+    <a href="/createBook">Aggiungi un libro</a>
+    <h2>Libri</h2>
+    <table th:if="${not #lists.isEmpty(libri)}">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Descrizione</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${libri}">
+            <td th:text="${book.titolo}"></td>
+            <td th:text="${book.autore}"></td>
+            <td th:text="${book.descrizione}"></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

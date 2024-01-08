@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book</title>
+</head>
+<body>
+<form action="#" th:action="@{/postStoreBook}" th:object="${book}" method="post">
+  <table>
+    <tr>
+      <td>Titolo:</td>
+
+      <td><input type="text" th:field="*{titolo}" /></td>
+
+      <td th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}">Titolo Error</td>
+    </tr>
+    <tr>
+      <td>Autore:</td>
+
+      <td><input type="text" th:field="*{autore}" /></td>
+
+      <td th:if="${#fields.hasErrors('autore')}" th:errors="*{autore}">Autore Error</td>
+    </tr>
+    <tr>
+      <td>Descrizione:</td>
+
+      <td><input type="text" th:field="*{descrizione}" /></td>
+
+      <td th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}">Descrizione Error</td>
+    </tr>
+    <tr>
+      <td><button type="submit">Submit</button></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
