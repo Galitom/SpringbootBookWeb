@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @Controller
 public class BookController {
 
-    ArrayList<Book>libri = new ArrayList<>();
+    static ArrayList<Book>libri = new ArrayList<>();
 
     @GetMapping("/createBook")
     public String createBook(Book book){
@@ -27,7 +27,7 @@ public class BookController {
         }
         libri.add(book);
         model.addAttribute("libri",libri);
-        return "home";
+        return "redirect:/home";
     }
 
 
