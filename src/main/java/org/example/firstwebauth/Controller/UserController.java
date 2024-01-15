@@ -40,18 +40,12 @@ public class UserController {
 
     @PostMapping("/postLogin")
     public String postLogin(LoginForm loginForm) {
-        boolean b = false;
+        User user = userRepository.login(loginForm.username, loginForm.password);
 
-        for (PersonaForm pf : utenti){
-            if(pf.username.equals(loginForm.username) && pf.password.equals(loginForm.password)){
-                b = true;
-            }
-        }
-
-        if(b){
-            return "redirect:/home";
-        }else{
+        if(user == null){
             return "loginuser";
+        }else{
+            return "redirect:/home";
         }
     }
 
