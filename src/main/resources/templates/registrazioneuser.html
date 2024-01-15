@@ -1,38 +1,39 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <!-- Add any additional styles or links to external stylesheets here -->
+</head>
 <body>
-<h1>Registrazione</h1>
+
+<h1>Registration</h1>
+
 <form action="#" th:action="@{/postRegistrazione}" th:object="${personaForm}" method="post">
     <table>
         <tr>
             <td>Name:</td>
-
             <td><input type="text" th:field="*{name}" /></td>
-
             <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
         </tr>
         <tr>
             <td>Surname:</td>
-
             <td><input type="text" th:field="*{surname}" /></td>
-
             <td th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</td>
         </tr>
         <tr>
             <td>Username:</td>
-
             <td><input type="text" th:field="*{username}" /></td>
-
             <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</td>
         </tr>
         <tr>
             <td>Password:</td>
-
             <td><input type="password" th:field="*{password}" /></td>
-
             <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
         </tr>
         <tr>
-            <td><button type="submit">Submit</button></td>
+            <td colspan="3"><button type="submit">Submit</button></td>
         </tr>
     </table>
 </form>

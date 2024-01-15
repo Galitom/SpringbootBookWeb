@@ -1,6 +1,9 @@
 package org.example.firstwebauth.Controller;
 
 import jakarta.validation.Valid;
+import org.example.firstwebauth.Model.User;
+import org.example.firstwebauth.Model.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +14,8 @@ import java.util.ArrayList;
 
 @Controller
 public class UserController {
+    @Autowired
+    private UserRepository userRepository;
 
     ArrayList<PersonaForm>utenti = new ArrayList<>();
 
@@ -20,11 +25,11 @@ public class UserController {
     }
 
     @PostMapping("/postRegistrazione")
-    public String postRegistrazione(@Valid PersonaForm personaForm, BindingResult bindingResult){
+    public String  postRegistrazione(@Valid PersonaForm personaForm, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "registrazioneuser";
         }
-        utenti.add(personaForm);
+        userRepository.save(new User(personaForm.name,personaForm.surname,personaForm.username,personaForm.password));
         return "redirect:/login";
     }
 
