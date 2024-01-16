@@ -11,8 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -56,11 +59,32 @@ public class UserController {
     }
 
     @GetMapping("/home")
-    public String showHome(Model m ) {
-        m.addAttribute("libri",bookRepository.findAll());
+    public String showHome(Model m, HttpSession session) {
+
+        User user = (User) session.getAttribute("user");
+        m.addAttribute("libri",bookRepository.findByUserId(user.getId()));
 
         return "home";
     }
+
+    @GetMapping("/remove")
+    public String removeBook(@RequestParam("bookId") Integer bookId){
+        Optional<Book> bookToRemove = bookRepository.findById(bookId);
+
+        if (bookToRemove.isPresent()) {
+            Book book = bookToRemove.get();
+            bookRepository.delete(book);
+        }
+
+        return "redirect:/home";
+    }
+
+
+//    @GetMapping("buttare")
+//    @ResponseBody
+//    public String buttare(){
+//        return Json;
+//    }
 
 }
 

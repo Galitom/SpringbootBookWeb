@@ -14,6 +14,7 @@
             <th>Title</th>
             <th>Author</th>
             <th>Descrizione</th>
+            <th>Cancella</th>
 
         </tr>
         </thead>
@@ -22,6 +23,8 @@
             <td th:text="${book.titolo}"></td>
             <td th:text="${book.autore}"></td>
             <td th:text="${book.descrizione}"></td>
+            <td> <a th:href="@{/remove(bookId=${book.getId()})}"> Rimuovi libro </a></td>
+
         </tr>
         </tbody>
     </table>
