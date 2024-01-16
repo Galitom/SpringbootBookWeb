@@ -58,6 +58,12 @@ public class UserController {
         }
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+            session.setAttribute("", null);
+            return "redirect:/login";
+    }
+
     @GetMapping("/home")
     public String showHome(Model m, HttpSession session) {
 
