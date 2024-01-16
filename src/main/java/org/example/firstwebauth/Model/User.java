@@ -1,9 +1,10 @@
 package org.example.firstwebauth.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.example.firstwebauth.Controller.Book;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -15,6 +16,10 @@ public class User {
     private String surname;
     private String username;
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Book> books = new HashSet<>();
+
 
     public User(){}
 

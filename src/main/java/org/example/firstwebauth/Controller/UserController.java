@@ -1,6 +1,8 @@
 package org.example.firstwebauth.Controller;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.example.firstwebauth.Model.BookRepository;
 import org.example.firstwebauth.Model.User;
 import org.example.firstwebauth.Model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private BookRepository bookRepository;
 
     ArrayList<PersonaForm>utenti = new ArrayList<>();
 
@@ -39,19 +43,22 @@ public class UserController {
     }
 
     @PostMapping("/postLogin")
-    public String postLogin(LoginForm loginForm) {
+    public String postLogin(LoginForm loginForm, HttpSession session) {
         User user = userRepository.login(loginForm.username, loginForm.password);
 
-        if(user == null){
-            return "loginuser";
-        }else{
+        if(user != null){
+            session.setAttribute("user", user);
+            System.out.println(session.getAttribute("user"));
             return "redirect:/home";
+        }else{
+            return "loginUser";
         }
     }
 
     @GetMapping("/home")
     public String showHome(Model m ) {
-        m.addAttribute("libri",BookController.libri); //da sostituire con la parte del DB
+        m.addAttribute("libri",bookRepository.findAll());
+
         return "home";
     }
 
