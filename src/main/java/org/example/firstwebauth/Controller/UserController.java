@@ -26,6 +26,11 @@ public class UserController {
 
     ArrayList<PersonaForm>utenti = new ArrayList<>();
 
+    @GetMapping("/")
+    public String dashboard(){
+        return "dashboard";
+    }
+
     @GetMapping("/registrazione")
     public String showRegister(PersonaForm personaForm){
         return "registrazioneuser";
@@ -60,7 +65,7 @@ public class UserController {
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-            session.setAttribute("", null);
+            session.setAttribute("user", null);
             return "redirect:/login";
     }
 
@@ -71,18 +76,6 @@ public class UserController {
         m.addAttribute("libri",bookRepository.findByUserId(user.getId()));
 
         return "home";
-    }
-
-    @GetMapping("/remove")
-    public String removeBook(@RequestParam("bookId") Integer bookId){
-        Optional<Book> bookToRemove = bookRepository.findById(bookId);
-
-        if (bookToRemove.isPresent()) {
-            Book book = bookToRemove.get();
-            bookRepository.delete(book);
-        }
-
-        return "redirect:/home";
     }
 
     @GetMapping("/profilo")
@@ -111,6 +104,15 @@ public class UserController {
         userRepository.save(user1);
 
         return "redirect:/profilo";
+    }
+
+    @GetMapping("/delete")
+    public String removeBook(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        userRepository.delete(user);
+        session.setAttribute("user",null);
+
+        return "redirect:/registrazione";
     }
 
 

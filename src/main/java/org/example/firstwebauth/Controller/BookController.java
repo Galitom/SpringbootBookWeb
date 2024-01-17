@@ -25,7 +25,7 @@ public class BookController {
 
     @GetMapping("/createBook")
     public String createBook(Book book){
-        return "createbook";
+            return "createbook";
     }
 
     @GetMapping("/dettaglio")
@@ -88,5 +88,16 @@ public class BookController {
         return "redirect:/home";
     }
 
+    @GetMapping("/remove")
+    public String removeBook(@RequestParam("bookId") Integer bookId){
+        Optional<Book> bookToRemove = bookRepository.findById(bookId);
+
+        if (bookToRemove.isPresent()) {
+            Book book = bookToRemove.get();
+            bookRepository.delete(book);
+        }
+
+        return "redirect:/home";
+    }
 
 }
