@@ -1,6 +1,5 @@
 package org.example.firstwebauth.Model;
 
-import org.example.firstwebauth.Controller.Book;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

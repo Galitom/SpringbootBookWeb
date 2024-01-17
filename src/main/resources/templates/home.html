@@ -6,9 +6,10 @@
 </head>
 <body>
     <h1>Home</h1>
-    <a href="/createBook">Aggiungi un libro</a>
+    <a href="/profilo">Visualizza Profilo</a><br><br>
     <a href="/logout">Logout </a>
     <h2>Libri</h2>
+    <a href="/createBook">Aggiungi un libro</a><br><br>
     <table th:if="${not #lists.isEmpty(libri)}">
         <thead>
         <tr>

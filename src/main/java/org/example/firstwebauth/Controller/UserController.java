@@ -2,6 +2,7 @@ package org.example.firstwebauth.Controller;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.example.firstwebauth.Model.Book;
 import org.example.firstwebauth.Model.BookRepository;
 import org.example.firstwebauth.Model.User;
 import org.example.firstwebauth.Model.UserRepository;
@@ -12,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -83,6 +83,14 @@ public class UserController {
         }
 
         return "redirect:/home";
+    }
+
+    @GetMapping("/profilo")
+    public String showProfilo(HttpSession session, Model model){
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+
+        return "profilo";
     }
 
 

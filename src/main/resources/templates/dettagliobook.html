@@ -3,28 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
-    <table>
-        <thead>
-        <tr>
-            <th>Title</th>
-            <th>Autore</th>
-            <th>Descrizione</th>
-            <th>Cancella</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td th:text="${libro.getTitolo()}"></td>
-            <td th:text="${libro.getAutore()}"></td>
-            <td th:text="${libro.getDescrizione()}"></td>
-            <td> <a th:href="@{/remove(bookId=${libro.getId()})}"> Rimuovi libro </a></td>
-        </tr>
-        </tbody>
-    </table>
 </head>
 <body>
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Autore</th>
+        <th>Descrizione</th>
+        <th>Cancella</th>
 
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${libro.getTitolo()}"></td>
+        <td th:text="${libro.getAutore()}"></td>
+        <td th:text="${libro.getDescrizione()}"></td>
+        <td> <a th:href="@{/remove(bookId=${libro.getId()})}"> Rimuovi libro </a></td>
+    </tr>
+    </tbody>
+</table>
+<a href="/home">Torna alla home</a>
 </body>
 </html>

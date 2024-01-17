@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profilo</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Username</th>
+        <th>Password</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getSurname()}"></td>
+        <td th:text="${user.getUsername()}"></td>
+        <td th:text="${user.getPassword()}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/home">Torna alla home</a>
+
+</body>
+</html>

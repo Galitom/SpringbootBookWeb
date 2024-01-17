@@ -1,4 +1,4 @@
-package org.example.firstwebauth.Controller;
+package org.example.firstwebauth.Model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

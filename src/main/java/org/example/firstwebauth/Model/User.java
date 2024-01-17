@@ -1,7 +1,6 @@
 package org.example.firstwebauth.Model;
 
 import jakarta.persistence.*;
-import org.example.firstwebauth.Controller.Book;
 
 import java.util.HashSet;
 import java.util.Set;
