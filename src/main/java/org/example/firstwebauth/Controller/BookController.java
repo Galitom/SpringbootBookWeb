@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -40,6 +41,37 @@ public class BookController {
         m.addAttribute("libro",book);
         return "dettagliobook";
     }
+
+    @GetMapping("/modifica")
+    public String mostraModificaForm(@RequestParam("bookId") int bookId, Model model) {
+        Optional<Book> bookOptional = bookRepository.findById(bookId);
+
+        if (bookOptional.isPresent()) {
+            Book libro = bookOptional.get();
+            model.addAttribute("book", libro);
+        }
+        return "modificaForm";
+    }
+
+    @PostMapping("modificaPost")
+    public String mostraModificaPost(@Valid Book book,BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()){
+            return "modificaForm";
+        }
+        Optional<Book> bookOptional = bookRepository.findById(book.getId());
+
+        if (bookOptional.isPresent()) {
+            Book libro = bookOptional.get();
+            libro.setTitolo(book.getTitolo());
+            libro.setAutore(book.getAutore());
+            libro.setDescrizione(book.getDescrizione());
+            System.out.printf(libro.toString());
+            bookRepository.save(libro);
+        }
+        return "redirect:/home";
+    }
+
 
     @PostMapping("/postStoreBook")
     public String storeBook(@Valid Book book, BindingResult bindingResult, Model model, HttpSession session){
