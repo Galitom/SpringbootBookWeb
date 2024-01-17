@@ -93,6 +93,26 @@ public class UserController {
         return "profilo";
     }
 
+    @GetMapping("/modificaUtente")
+    public String mostraModificaForm(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+        return "modificaProfilo";
+    }
+
+    @PostMapping("/modificaPostUtente")
+    public String postModificaForm(User user, HttpSession session) {
+        User user1 = (User) session.getAttribute("user");
+        user1.setName(user.getName());
+        user1.setSurname(user.getSurname());
+        user1.setUsername(user.getUsername());
+        user1.setPassword(user.getPassword());
+
+        userRepository.save(user1);
+
+        return "redirect:/profilo";
+    }
+
 
 //    @GetMapping("buttare")
 //    @ResponseBody
