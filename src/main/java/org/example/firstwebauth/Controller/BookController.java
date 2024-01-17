@@ -100,4 +100,11 @@ public class BookController {
         return "redirect:/home";
     }
 
+//    @GetMapping("/getjson")
+//    public String getBookJosn(){
+//        Iterable<Book> books = bookRepository.findAll();
+//
+//
+//    }
+
 }

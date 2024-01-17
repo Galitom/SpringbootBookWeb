@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -107,9 +108,16 @@ public class UserController {
     }
 
     @GetMapping("/delete")
-    public String removeBook(HttpSession session){
+    public String removeUser(HttpSession session){
         User user = (User) session.getAttribute("user");
+        List<Book> bookOptional = bookRepository.findByUserId(user.getId());
+        for (Book b : bookOptional){
+            b.setUser(null);
+            bookRepository.save(b);
+        }
+
         userRepository.delete(user);
+
         session.setAttribute("user",null);
 
         return "redirect:/registrazione";
