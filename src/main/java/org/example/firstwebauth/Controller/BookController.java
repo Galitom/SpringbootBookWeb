@@ -28,6 +28,15 @@ public class BookController {
             return "createbook";
     }
 
+    @PostMapping("/postStoreBook")
+    public String storeBook(@Valid Book book, BindingResult bindingResult, Model model, HttpSession session){
+        if(bindingResult.hasErrors()){
+            return "createbook";
+        }
+        bookRepository.save(book);
+        return "redirect:/home";
+    }
+
     @GetMapping("/dettaglio")
     public String dettaglioBook(@RequestParam("bookId") Integer bookId, Model m, HttpSession session){
 
@@ -37,6 +46,8 @@ public class BookController {
         if (bookDettaglio.isPresent()) {
             book = bookDettaglio.get();
         }
+
+        //html anche il prezzo
 
         m.addAttribute("libro",book);
         return "dettagliobook";
@@ -50,6 +61,8 @@ public class BookController {
             Book libro = bookOptional.get();
             model.addAttribute("book", libro);
         }
+        //html anche il prezzo
+
         return "modificaForm";
     }
 
@@ -66,21 +79,17 @@ public class BookController {
             libro.setTitolo(book.getTitolo());
             libro.setAutore(book.getAutore());
             libro.setDescrizione(book.getDescrizione());
+            libro.setPrice(book.getPrice());
             System.out.printf(libro.toString());
             bookRepository.save(libro);
         }
+        //html anche il prezzo
+
         return "redirect:/home";
     }
 
 
-    @PostMapping("/postStoreBook")
-    public String storeBook(@Valid Book book, BindingResult bindingResult, Model model, HttpSession session){
-        if(bindingResult.hasErrors()){
-            return "createbook";
-        }
-        bookRepository.save(book);
-        return "redirect:/home";
-    }
+
 
     @GetMapping("/remove")
     public String removeBook(@RequestParam("bookId") Integer bookId){
