@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.example.firstwebauth.Model.User;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 public class Book {
 
@@ -23,26 +26,37 @@ public class Book {
     @Size(min=0, max=30)
     String descrizione;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @NotNull
+    double price;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+    @ManyToMany(mappedBy = "books")
+    private Set<User> users = new HashSet<>();
 
 
     public Book() {
     }
 
-    public Book(String titolo, String autore, String descrizione) {
+    public Book(String titolo, String autore, String descrizione, double price) {
         this.titolo = titolo;
         this.autore = autore;
         this.descrizione = descrizione;
+        this.price = price;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     public Integer getId() {

@@ -75,15 +75,9 @@ public class BookController {
 
     @PostMapping("/postStoreBook")
     public String storeBook(@Valid Book book, BindingResult bindingResult, Model model, HttpSession session){
-
-        User user = (User) session.getAttribute("user");
-
-
         if(bindingResult.hasErrors()){
             return "createbook";
         }
-        System.out.println("Controllo sessione:" + session.getAttribute("user"));
-        book.setUser(user);
         bookRepository.save(book);
         return "redirect:/home";
     }

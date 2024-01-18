@@ -74,7 +74,7 @@ public class UserController {
     public String showHome(Model m, HttpSession session) {
 
         User user = (User) session.getAttribute("user");
-        m.addAttribute("libri",bookRepository.findByUserId(user.getId()));
+//        m.addAttribute("libri",bookRepository.findByUserId(user.getId()));
 
         return "home";
     }
@@ -110,19 +110,12 @@ public class UserController {
     @GetMapping("/delete")
     public String removeUser(HttpSession session){
         User user = (User) session.getAttribute("user");
-        List<Book> bookOptional = bookRepository.findByUserId(user.getId());
-        for (Book b : bookOptional){
-            b.setUser(null);
-            bookRepository.save(b);
-        }
-
         userRepository.delete(user);
 
         session.setAttribute("user",null);
 
         return "redirect:/registrazione";
     }
-
 
 //    @GetMapping("buttare")
 //    @ResponseBody
