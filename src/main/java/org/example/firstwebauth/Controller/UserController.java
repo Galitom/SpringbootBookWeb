@@ -24,9 +24,6 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private BookRepository bookRepository;
-
-    ArrayList<PersonaForm>utenti = new ArrayList<>();
-
     @GetMapping("/")
     public String dashboard(){
         return "dashboard";
@@ -74,7 +71,10 @@ public class UserController {
     public String showHome(Model m, HttpSession session) {
 
         User user = (User) session.getAttribute("user");
-//        m.addAttribute("libri",bookRepository.findByUserId(user.getId()));
+
+        m.addAttribute("libri",bookRepository.findAll());
+
+        //stampare i libri dell'utente aggiunti ai preferiti
 
         return "home";
     }
@@ -116,12 +116,5 @@ public class UserController {
 
         return "redirect:/registrazione";
     }
-
-//    @GetMapping("buttare")
-//    @ResponseBody
-//    public String buttare(){
-//        return Json;
-//    }
-
 }
 
