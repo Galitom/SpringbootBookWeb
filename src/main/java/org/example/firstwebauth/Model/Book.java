@@ -1,9 +1,7 @@
 package org.example.firstwebauth.Model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import org.example.firstwebauth.Model.User;
 
 import java.util.HashSet;
@@ -28,7 +26,7 @@ public class Book {
     String descrizione;
 
     @NotNull
-    @Min(4)
+    @Min(0)
     double price;
 
     @ManyToMany(mappedBy = "books")

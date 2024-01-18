@@ -57,7 +57,7 @@ public class UserController {
             System.out.println(session.getAttribute("user"));
             return "redirect:/home";
         }else{
-            return "loginUser";
+            return "loginuser";
         }
     }
 
@@ -74,7 +74,7 @@ public class UserController {
 
         m.addAttribute("libri",bookRepository.findAll());
 
-        //stampare i libri dell'utente aggiunti ai preferiti
+        m.addAttribute("preferiti",bookRepository.findBooksByUserId(user.getId()));
 
         return "home";
     }

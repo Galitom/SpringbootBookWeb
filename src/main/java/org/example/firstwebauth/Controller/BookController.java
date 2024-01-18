@@ -21,8 +21,6 @@ import java.util.Optional;
 public class BookController {
     @Autowired
     BookRepository bookRepository;
-    static ArrayList<Book>libri = new ArrayList<>();
-
     @GetMapping("/createBook")
     public String createBook(Book book){
             return "createbook";
@@ -86,6 +84,15 @@ public class BookController {
         //html anche il prezzo
 
         return "redirect:/home";
+    }
+
+    @PostMapping("/preferiti")
+    public String bookUser(@RequestParam("bookId") Integer bookId, HttpSession session){
+
+        User user = (User) session.getAttribute("user");
+//        bookRepository.saveBooksUserId(user.getId(),bookId);
+        return "redirect:/home";
+
     }
 
 

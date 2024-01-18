@@ -31,7 +31,7 @@
     <tr>
       <td>Prezzo:</td>
 
-      <td><input type="int" th:field="*{price}" /></td>
+      <td><input type="number" th:field="*{price}" /></td>
 
       <td th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Prezzo Error</td>
     </tr>
