@@ -68,14 +68,14 @@
     <tr>
         <th>Title</th>
         <th>Dettaglio</th>
-        <th>Modifica</th>
-        <th>Cancella</th>
+        <th>Togli preferiti</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="book : ${preferiti}">
         <td th:text="${book.titolo}"></td>
         <td> <a th:href="@{/dettaglio(bookId=${book.getId()})}"> Dettaglio libro </a></td>
+        <td> <a th:href="@{/togliPreferiti(bookId=${book.getId()})}"> Togli preferiti </a></td>
     </tr>
     </tbody>
 </table>

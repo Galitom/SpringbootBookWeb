@@ -55,6 +55,8 @@
         <th>Title</th>
         <th>Autore</th>
         <th>Descrizione</th>
+        <th>Prezzo</th>
+        <th>Modifica</th>
         <th>Cancella</th>
     </tr>
     </thead>
@@ -63,6 +65,8 @@
         <td th:text="${libro.getTitolo()}"></td>
         <td th:text="${libro.getAutore()}"></td>
         <td th:text="${libro.getDescrizione()}"></td>
+        <td th:text="${libro.getPrice()}"></td>
+        <td> <a th:href="@{/modifica(bookId=${libro.getId()})}"> Edit libro </a></td>
         <td> <a th:href="@{/remove(bookId=${libro.getId()})}"> Rimuovi libro </a></td>
     </tr>
     </tbody>

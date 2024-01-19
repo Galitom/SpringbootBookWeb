@@ -29,7 +29,7 @@ public class Book {
     @Min(0)
     double price;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book",cascade = CascadeType.ALL, orphanRemoval = true)
     Set<UserBook> user_book;
 
 

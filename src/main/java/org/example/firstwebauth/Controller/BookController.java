@@ -125,6 +125,26 @@ public class BookController {
 
     }
 
+    @RequestMapping ("/togliPreferiti")
+    public String togliPreferiti(@RequestParam("bookId") Integer bookId, HttpSession session){
+        if(session.getAttribute("user")==null){
+            return "sessionerror";
+        }
+
+        User user = (User) session.getAttribute("user");
+
+        Optional<UserBook> optional = userBookRepository.findBooksByUserBooks(user.getId(),bookId);
+        UserBook ub = null;
+        if (optional.isPresent()) {
+            ub = optional.get();
+        }
+
+        userBookRepository.delete(ub);
+
+        return "redirect:/home";
+
+    }
+
     @GetMapping("/remove")
     public String removeBook(@RequestParam("bookId") Integer bookId, HttpSession session){
         if(session.getAttribute("user")==null){
