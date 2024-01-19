@@ -37,7 +37,7 @@ public class BookController {
         }
 
         if(bindingResult.hasErrors()){
-            return "createbook";
+            return "redirect:/createBook";
         }
         bookRepository.save(book);
         return "redirect:/home";

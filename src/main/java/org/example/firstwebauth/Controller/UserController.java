@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class UserController {
             System.out.println(session.getAttribute("user"));
             return "redirect:/home";
         }else{
-            return "loginuser";
+            return "redirect:/login";
         }
     }
 
@@ -132,6 +133,16 @@ public class UserController {
         session.setAttribute("user",null);
 
         return "redirect:/registrazione";
+    }
+
+    @RequestMapping("/deleteAll")
+    public String deleteAllBooks(HttpSession session){
+        if(session.getAttribute("user")==null){
+            return "sessionerror";
+        }
+        bookRepository.deleteAll();
+        return "redirect:/home";
+
     }
 }
 
