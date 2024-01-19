@@ -70,17 +70,24 @@ public class UserController {
     @GetMapping("/home")
     public String showHome(Model m, HttpSession session) {
 
+        if(session.getAttribute("user")==null){
+            return "sessionerror";
+        }
+
         User user = (User) session.getAttribute("user");
 
         m.addAttribute("libri",bookRepository.findAll());
 
-        m.addAttribute("preferiti",bookRepository.findBooksByUserId(user.getId()));
+        m.addAttribute("preferiti",bookRepository.findBooksByUserBooks(user.getId()));
 
         return "home";
     }
 
     @GetMapping("/profilo")
     public String showProfilo(HttpSession session, Model model){
+        if(session.getAttribute("user")==null){
+            return "sessionerror";
+        }
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
 
@@ -89,13 +96,20 @@ public class UserController {
 
     @GetMapping("/modificaUtente")
     public String mostraModificaForm(Model model, HttpSession session) {
+        if(session.getAttribute("user")==null){
+            return "sessionerror";
+        }
         User user = (User) session.getAttribute("user");
+
         model.addAttribute("user", user);
         return "modificaProfilo";
     }
 
     @PostMapping("/modificaPostUtente")
     public String postModificaForm(User user, HttpSession session) {
+        if(session.getAttribute("user")==null){
+            return "sessionerror";
+        }
         User user1 = (User) session.getAttribute("user");
         user1.setName(user.getName());
         user1.setSurname(user.getSurname());
@@ -109,6 +123,9 @@ public class UserController {
 
     @GetMapping("/delete")
     public String removeUser(HttpSession session){
+        if(session.getAttribute("user")==null){
+            return "sessionerror";
+        }
         User user = (User) session.getAttribute("user");
         userRepository.delete(user);
 

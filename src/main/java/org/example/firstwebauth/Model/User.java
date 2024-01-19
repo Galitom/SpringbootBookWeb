@@ -16,13 +16,8 @@ public class User {
     private String username;
     private String password;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "User_Book",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "book_id") }
-    )
-    Set<Book> books = new HashSet<>();
+    @OneToMany(mappedBy = "user")
+    Set<UserBook> user_book;
 
 
     public User(){}

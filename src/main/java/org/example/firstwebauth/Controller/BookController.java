@@ -2,15 +2,14 @@ package org.example.firstwebauth.Controller;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.example.firstwebauth.Model.Book;
-import org.example.firstwebauth.Model.BookRepository;
-import org.example.firstwebauth.Model.User;
+import org.example.firstwebauth.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -21,13 +20,22 @@ import java.util.Optional;
 public class BookController {
     @Autowired
     BookRepository bookRepository;
+    @Autowired
+    UserBookRepository userBookRepository;
     @GetMapping("/createBook")
-    public String createBook(Book book){
+    public String createBook(Book book, HttpSession session){
+        if(session.getAttribute("user")==null){
+            return "sessionerror";
+        }
             return "createbook";
     }
 
     @PostMapping("/postStoreBook")
     public String storeBook(@Valid Book book, BindingResult bindingResult, Model model, HttpSession session){
+        if(session.getAttribute("user")==null){
+            return "sessionerror";
+        }
+
         if(bindingResult.hasErrors()){
             return "createbook";
         }
@@ -37,6 +45,10 @@ public class BookController {
 
     @GetMapping("/dettaglio")
     public String dettaglioBook(@RequestParam("bookId") Integer bookId, Model m, HttpSession session){
+
+        if(session.getAttribute("user")==null){
+            return "sessionerror";
+        }
 
         Optional<Book> bookDettaglio = bookRepository.findById(bookId);
         Book book = null;
@@ -52,7 +64,11 @@ public class BookController {
     }
 
     @GetMapping("/modifica")
-    public String mostraModificaForm(@RequestParam("bookId") int bookId, Model model) {
+    public String mostraModificaForm(@RequestParam("bookId") int bookId, Model model, HttpSession session) {
+        if(session.getAttribute("user")==null){
+            return "sessionerror";
+        }
+
         Optional<Book> bookOptional = bookRepository.findById(bookId);
 
         if (bookOptional.isPresent()) {
@@ -65,7 +81,11 @@ public class BookController {
     }
 
     @PostMapping("modificaPost")
-    public String mostraModificaPost(@Valid Book book,BindingResult bindingResult) {
+    public String mostraModificaPost(@Valid Book book,BindingResult bindingResult, HttpSession session) {
+
+        if(session.getAttribute("user")==null){
+            return "sessionerror";
+        }
 
         if(bindingResult.hasErrors()){
             return "modificaForm";
@@ -86,20 +106,31 @@ public class BookController {
         return "redirect:/home";
     }
 
-    @PostMapping("/preferiti")
+    @RequestMapping ("/preferiti")
     public String bookUser(@RequestParam("bookId") Integer bookId, HttpSession session){
+        if(session.getAttribute("user")==null){
+            return "sessionerror";
+        }
 
         User user = (User) session.getAttribute("user");
-//        bookRepository.saveBooksUserId(user.getId(),bookId);
+        Optional<Book> bookDettaglio = bookRepository.findById(bookId);
+        Book book = null;
+
+        if (bookDettaglio.isPresent()) {
+            book = bookDettaglio.get();
+        }
+        UserBook userBook = new UserBook(user,book);
+        userBookRepository.save(userBook);
         return "redirect:/home";
 
     }
 
-
-
-
     @GetMapping("/remove")
-    public String removeBook(@RequestParam("bookId") Integer bookId){
+    public String removeBook(@RequestParam("bookId") Integer bookId, HttpSession session){
+        if(session.getAttribute("user")==null){
+            return "sessionerror";
+        }
+
         Optional<Book> bookToRemove = bookRepository.findById(bookId);
 
         if (bookToRemove.isPresent()) {

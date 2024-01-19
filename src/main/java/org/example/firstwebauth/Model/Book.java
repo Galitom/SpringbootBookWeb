@@ -29,8 +29,8 @@ public class Book {
     @Min(0)
     double price;
 
-    @ManyToMany(mappedBy = "books")
-    private Set<User> users = new HashSet<>();
+    @OneToMany(mappedBy = "book")
+    Set<UserBook> user_book;
 
 
     public Book() {
@@ -49,14 +49,6 @@ public class Book {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     public Integer getId() {

@@ -76,8 +76,6 @@
     <tr th:each="book : ${preferiti}">
         <td th:text="${book.titolo}"></td>
         <td> <a th:href="@{/dettaglio(bookId=${book.getId()})}"> Dettaglio libro </a></td>
-        <td> <a th:href="@{/modifica(bookId=${book.getId()})}"> Modifica libro </a></td>
-        <td> <a th:href="@{/remove(bookId=${book.getId()})}"> Rimuovi libro </a></td>
     </tr>
     </tbody>
 </table>
@@ -98,7 +96,7 @@
         <td th:text="${book.titolo}"></td>
         <td> <a th:href="@{/dettaglio(bookId=${book.getId()})}"> Dettaglio libro </a></td>
         <td> <a th:href="@{/modifica(bookId=${book.getId()})}"> Modifica libro </a></td>
-        <td> <a th:href="@{/preferiti(bookId=${book.getId()})}"> Preferiti libro </a></td>
+        <td> <a th:href="@{/preferiti(bookId=${book.getId()})}"> Aggiungi Preferiti </a></td>
         <td> <a th:href="@{/remove(bookId=${book.getId()})}"> Rimuovi libro </a></td>
     </tr>
     </tbody>
