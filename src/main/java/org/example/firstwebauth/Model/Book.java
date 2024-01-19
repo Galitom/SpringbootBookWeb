@@ -15,14 +15,17 @@ public class Book {
     private Integer id;
 
     @NotNull
-    @Size(min=2, max=30)
+    @Size(min = 5, max = 100)
+    @Column(length = 101)
     String titolo;
 
     @NotNull
-    @Size(min=2, max=50)
+    @Size(min = 5, max = 100)
+    @Column(length = 101)
     String autore;
 
-    @Size(min=0, max=30)
+    @Size(min = 5)
+    @Column(length = 101)
     String descrizione;
 
     @NotNull
